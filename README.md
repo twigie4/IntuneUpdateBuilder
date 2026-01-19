@@ -24,9 +24,8 @@ Open `http://localhost:3000`.
 npm run test
 ```
 
-## Deploy to Vercel
+## Deploy
 
-1. Push the repository to GitHub.
-2. Import the repo in Vercel.
-3. Use the default Next.js build settings.
-
+1. Build the app with `npm run build`.
+2. Start the production server with `npm run start`.
+3. Configure your hosting platform to run the Node.js server.
