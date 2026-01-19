@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import JSZip from "jszip";
 import { parseKb } from "../lib/parseKb";
 import {
@@ -19,6 +19,27 @@ export default function Home() {
   const [arch, setArch] = useState<"auto" | "x64" | "arm64">("auto");
   const [requireClient, setRequireClient] = useState(true);
   const [notApplicableInstalled, setNotApplicableInstalled] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const nextTheme =
+      storedTheme === "light" || storedTheme === "dark"
+        ? storedTheme
+        : prefersDark
+          ? "dark"
+          : "light";
+    setTheme(nextTheme);
+    document.documentElement.dataset.theme = nextTheme;
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const parsed = useMemo(() => parseKb(input), [input]);
 
@@ -95,11 +116,21 @@ export default function Home() {
   return (
     <main>
       <header>
-        <h1>Intune Update Builder</h1>
-        <p>
-          Generate Intune Win32 PowerShell scripts for KB-based Windows Updates
-          (Pattern C, no MSU upload).
-        </p>
+        <div className="header-row">
+          <div>
+            <h1>Intune Update Builder</h1>
+            <p>
+              Generate Intune Win32 PowerShell scripts for KB-based Windows
+              Updates (Pattern C, no MSU upload).
+            </p>
+          </div>
+          <button
+            className="ghost"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          </button>
+        </div>
       </header>
 
       <section className="section">
