@@ -29,7 +29,7 @@ $wusaPath = if ([Environment]::Is64BitOperatingSystem -and -not [Environment]::I
 }
 
 Write-Output "Installing $($target.Name) via $wusaPath"
-$process = Start-Process -FilePath $wusaPath -ArgumentList "`"$($target.FullName)`" /quiet /norestart" -Wait -PassThru
+$process = Start-Process -FilePath $wusaPath -ArgumentList "\`"$($target.FullName)\`" /quiet /norestart" -Wait -PassThru
 $exitCode = $process.ExitCode
 
 $successCodes = 0, 3010, 2359302
