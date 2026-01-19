@@ -1,6 +1,6 @@
 # Intune Update Builder
 
-Intune Update Builder is a Next.js (App Router) + TypeScript web app that generates PowerShell scripts for packaging an .MSU Windows Update as a Win32 app in Intune using Pattern C (KB-based, no MSU upload).
+Intune Update Builder is a Next.js (App Router) + TypeScript web app that generates PowerShell scripts for packaging an .MSU Windows Update as a Win32 app in Intune.
 
 ## Features
 
